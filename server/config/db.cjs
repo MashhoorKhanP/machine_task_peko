@@ -7,12 +7,12 @@ const db = new Sequelize('blogApp', 'postgres', 'Mashhoor@Postgre', {
 });
 
 
-db.sync({ force: false })
-  .then(() => {
-    console.log('Database synchronized');
-  })
-  .catch(err => {
-    console.error('Error synchronizing database:', err);
-  });
+// db.sync({ force: false })
+//   .then(() => {
+//     console.log('Database synchronized');
+//   })
+//   .catch(err => {
+//     console.error('Error synchronizing database:', err);
+//   });
 
 module.exports = db;
