@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/common/Loader";
 import deleteFile from "../../firebase/deleteFile";
 import { useMutation } from "@tanstack/react-query";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const EditBlog = () => {
   const { postId } = useParams();
+  usePageTitle('Edit Blog');
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);

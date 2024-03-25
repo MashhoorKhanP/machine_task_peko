@@ -7,9 +7,11 @@ import Loader from "../../components/common/Loader";
 import { toast } from "react-toastify";
 import deleteFile from "../../firebase/deleteFile";
 import Swal from "sweetalert2";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const MyBlogs = () => {
   const navigate = useNavigate();
+  usePageTitle("Edit Blog");
   const { userId } = useParams();
   const [blogs, setBlogs] = useState([]);
   const { status: getMyBlogsStatus, mutate: myBlogsMutate } = useMutation({

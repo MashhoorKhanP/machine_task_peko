@@ -3,11 +3,12 @@ import { toast } from "react-toastify";
 import { signUp } from "../../api/user";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const SignUp = () => {
   const { userLoggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
+  usePageTitle('Sign up');
   useEffect(() => {
     if (userLoggedIn) {
       navigate("/home");

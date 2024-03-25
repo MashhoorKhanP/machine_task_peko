@@ -6,9 +6,11 @@ import { allBlogs } from "../../api/post";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const Home = () => {
   const navigate = useNavigate();
+  usePageTitle('All Blogs');
   const [blogs, setBlogs] = useState([]);
   const { userLoggedIn } = useSelector((state) => state.auth);
 

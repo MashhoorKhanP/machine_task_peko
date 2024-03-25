@@ -13,6 +13,7 @@ import {
   undoLike,
 } from "../../api/post";
 import { toast } from "react-toastify";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const ViewBlog = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const ViewBlog = () => {
   const [reportReason, setReportReason] = useState("");
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-
+  usePageTitle(`${blog?.title} - ${blog?.category}`);
   const { status: getBlogStatus, mutate: getBlogMutate } = useMutation({
     mutationFn: findBlog,
     onSuccess: (response) => {

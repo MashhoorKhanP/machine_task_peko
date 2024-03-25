@@ -3,9 +3,11 @@ import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { addBlog } from "../../api/post";
 import uploadFile from "../../firebase/upload";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const AddBlog = () => {
   const navigate = useNavigate();
+  usePageTitle("App Blog");
   const { userId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

@@ -6,12 +6,13 @@ import { toast } from "react-toastify";
 import { setLogin } from "../../store/slices/authSlice";
 import Loader from "../../components/common/Loader";
 import { adminLogin } from "../../api/admin";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  usePageTitle('Admin Login');
   const [showPassword, setShowPassword] = useState(false);
-
   const { userLoggedIn } = useSelector((state) => state.auth);
 
   useEffect(() => {

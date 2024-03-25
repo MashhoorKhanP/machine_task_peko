@@ -1,4 +1,7 @@
+import usePageTitle from "../../hooks/usePageTitle";
+
 const Dashboard = () => {
+  usePageTitle("Dashboard");
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="text-center">

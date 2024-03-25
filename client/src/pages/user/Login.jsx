@@ -6,9 +6,11 @@ import { login } from "../../api/user";
 import { toast } from "react-toastify";
 import { setLogin } from "../../store/slices/authSlice";
 import Loader from "../../components/common/Loader";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const Login = () => {
   const navigate = useNavigate();
+  usePageTitle('User Login')
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 

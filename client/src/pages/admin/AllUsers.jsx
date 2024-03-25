@@ -4,10 +4,12 @@ import { allUsers, unBlockBlockUser } from "../../api/admin";
 import Loader from "../../components/common/Loader";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
+  usePageTitle("All Users");
 
   const { status: getAllUsersStatus, mutate: allUserMutate } = useMutation({
     mutationFn: allUsers,
