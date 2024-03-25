@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -12,7 +12,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <>
     <ToastContainer autoClose={2000} theme="colored" newestOnTop={true} />
     <Provider store={store}>
       <BrowserRouter>
@@ -21,5 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </QueryClientProvider>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
+  </>
+  // </React.StrictMode>
 );

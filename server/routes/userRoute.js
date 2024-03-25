@@ -12,7 +12,7 @@ userRouter.post('/login', (req, res) => postLogin(req, res));
 userRouter.post('/logout', (req, res) => postLogout(req, res));
 
 userRouter.get('/all-posts', (req, res) => getAllPosts(req, res));
-userRouter.get('/my-posts/:userId', verifyUser, (req, res) => getMyPosts(req, res));
+userRouter.get('/my-posts', verifyUser, (req, res) => getMyPosts(req, res));
 userRouter.get('/post/:postId', verifyUser, (req, res) => getPost(req, res));
 userRouter.post('/add-post/:userId', verifyUser, (req, res) => postAddPost(req, res));
 userRouter.patch('/update-post/:postId', verifyUser, (req, res) => updatePost(req, res));

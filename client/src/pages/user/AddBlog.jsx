@@ -7,13 +7,14 @@ import usePageTitle from "../../hooks/usePageTitle";
 
 const AddBlog = () => {
   const navigate = useNavigate();
-  usePageTitle("App Blog");
+  usePageTitle("Add Blog");
   const { userId } = useParams();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+
   // Handle image upload
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
@@ -38,7 +39,7 @@ const AddBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const titleRegex = /^[a-zA-Z\s]+$/;
+    const titleRegex = /^[a-zA-Z0-9\s\-,@,/,()]+$/;
 
     if (!titleRegex.test(title)) {
       toast.error("Title should contain only alphabets.");
@@ -50,7 +51,7 @@ const AddBlog = () => {
       return;
     }
 
-    if (description.length < 200) {
+    if (description.trim().length < 200) {
       toast.error("Description should be at least 200 characters long.");
       return;
     }
@@ -88,7 +89,7 @@ const AddBlog = () => {
 
   return (
     <>
-      <div className="max-w-lg mx-auto mt-4 mb-4 p-6 bg-white rounded-lg shadow-2xl">
+      <div className="border border-gray-400 max-w-3xl mx-auto mt-4 mb-4 p-6 bg-white rounded-lg shadow-2xl">
         <h2 className="text-2xl font-bold mb-4">Add Blog</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -160,8 +161,7 @@ const AddBlog = () => {
               <img
                 src={imagePreview}
                 alt="Preview"
-                className="mt-2 rounded-md"
-                style={{ maxWidth: "200px" }}
+                className="mt-2 rounded-md max-h-80 max-w-lg"
               />
             )}
           </div>

@@ -8,7 +8,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 const SignUp = () => {
   const { userLoggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  usePageTitle('Sign up');
+  usePageTitle("Sign up");
   useEffect(() => {
     if (userLoggedIn) {
       navigate("/home");

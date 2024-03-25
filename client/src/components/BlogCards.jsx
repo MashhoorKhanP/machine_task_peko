@@ -45,15 +45,17 @@ const BlogCard = ({
 
       {/* Blog Image */}
       <img
-        className="w-full h-40 sm:h-60 object-cover"
+        className="w-full h-40 sm:h-60 object-fill"
         src={imageUrl}
         alt="Blog"
       />
 
       {/* Blog Content */}
-      <div className="p-4 bg-gray-400">
+      <div className="p-4 bg-gray-300">
         {/* Blog Title */}
-        <h2 className="text-xl font-bold">{title}</h2>
+        <h2 className="text-xl font-bold whitespace-nowrap truncate">
+          {title}
+        </h2>
         <p className="text-sm font-semibold text-gray-600 pb-2">{category}</p>
         {userId && (
           <p className="text-sm font-semibold text-gray-600 pb-2">

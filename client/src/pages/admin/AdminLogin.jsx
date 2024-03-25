@@ -11,7 +11,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 const AdminLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  usePageTitle('Admin Login');
+  usePageTitle("Admin Login");
   const [showPassword, setShowPassword] = useState(false);
   const { userLoggedIn } = useSelector((state) => state.auth);
 

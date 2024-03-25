@@ -10,7 +10,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 
 const EditBlog = () => {
   const { postId } = useParams();
-  usePageTitle('Edit Blog');
+  usePageTitle("Edit Blog");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
@@ -67,14 +67,14 @@ const EditBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const titleRegex = /^[a-zA-Z\s]+$/;
+    const titleRegex = /^[a-zA-Z0-9\s\-,@,/,()]+$/;
 
     if (!titleRegex.test(title)) {
       toast.error("Title should contain only alphabets.");
       return;
     }
 
-    if (description.length < 200) {
+    if (description.trim().length < 200) {
       toast.error("Description should be at least 200 characters long.");
       return;
     }
@@ -114,7 +114,7 @@ const EditBlog = () => {
         setCategory(blog?.category);
         setImage(blog?.image);
         setImagePreview(blog?.image);
-        navigate("/home");
+        navigate(`/my-blogs/${blog?.userId}`);
       } catch (error) {
         toast.error(error.message);
         console.log(error);
@@ -126,7 +126,7 @@ const EditBlog = () => {
   const categories = ["Web Development", "Art", "Technology"];
   return (
     <>
-      <div className="max-w-lg mx-auto mt-4 mb-4 p-6 bg-white rounded-lg shadow-2xl">
+      <div className="border border-gray-400 max-w-3xl mx-auto mt-4 mb-4 p-6 bg-white rounded-lg shadow-2xl">
         <h2 className="text-2xl font-bold mb-4">Edit Blog</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -198,8 +198,7 @@ const EditBlog = () => {
               <img
                 src={imagePreview}
                 alt="Preview"
-                className="mt-2 rounded-md"
-                style={{ maxWidth: "200px" }}
+                className="mt-2 rounded-md max-w-lg"
               />
             )}
           </div>

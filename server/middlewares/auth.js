@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 
 export const verifyUser = async (req, res, next) => {
   const token = req.cookies.userJWT;
-  console.log('token', token);
   if (!token) {
     return res.status(401).json({ message: "Access Denied!,Please login again." });
   }
@@ -13,7 +12,6 @@ export const verifyUser = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.user = decoded;
 
-    console.log(decoded);
     const role = req?.user?.role;
     if (!role) {
       return res.status(401).json({ message: "Access Denied!,Role not found in token" })

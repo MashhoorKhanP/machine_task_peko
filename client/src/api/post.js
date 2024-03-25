@@ -2,9 +2,9 @@ import Api from "../services/axios";
 import errorHandle from "../middleware/errorHandler";
 import postRoutes from "../services/endpoints/postEndPoints";
 
-export const allBlogs = async () => {
+export const allBlogs = async (parameters) => {
   try {
-    const response = await Api.get(postRoutes.allBlogs);
+    const response = await Api.get(`${postRoutes.allBlogs}?page=${parameters.page}&limit=${parameters.limit}&category=${parameters.category}&sorting=${parameters.sorting}`);
     return response;
   } catch (error) {
     return errorHandle(error);
@@ -22,7 +22,6 @@ export const findBlog = async (postId) => {
 
 export const addBlog = async (userId, blogData) => {
   try {
-    console.log('blogData', blogData)
     const response = await Api.post(`${postRoutes.addBlog}/${userId}`, blogData);
     return response;
   } catch (error) {
@@ -102,9 +101,9 @@ export const addReport = async (userId, uName, postId, reportData) => {
   }
 }
 
-export const myBlogs = async (userId) => {
+export const myBlogs = async (parameters) => {
   try {
-    const response = await Api.get(`${postRoutes.findMyBlogs}/${userId}`);
+    const response = await Api.get(`${postRoutes.findMyBlogs}?userId=${parameters.userId}&page=${parameters.page}&limit=${parameters.limit}&category=${parameters.category}&sorting=${parameters.sorting}`);
     return response;
   } catch (error) {
     return errorHandle(error);

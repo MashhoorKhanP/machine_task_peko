@@ -10,7 +10,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 
 const Login = () => {
   const navigate = useNavigate();
-  usePageTitle('User Login')
+  usePageTitle("User Login");
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -75,7 +75,7 @@ const Login = () => {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            User Login
           </h2>
         </div>
 

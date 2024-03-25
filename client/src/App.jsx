@@ -56,7 +56,7 @@ const App = () => {
           ),
         },
         {
-          path: "/my-blog/:userId",
+          path: "/my-blogs/:userId",
           element: (
             <>
               <Navbar role={"user"} />

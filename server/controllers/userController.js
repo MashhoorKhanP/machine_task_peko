@@ -33,7 +33,7 @@ export const postSignUp = async (req, res) => {
         password: hashedPassword
       });
     }
-    res.status(200).json({ message: 'User Registration successful!',data:req.body });
+    res.status(200).json({ message: 'User Registration successful!', data: req.body });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Internal server error, Please try again!' });
@@ -64,7 +64,7 @@ export const postLogin = async (req, res) => {
             maxAge: 30 * 24 * 60 * 60 * 1000
           });
 
-          const userDetails = { id: user.id, name: user.name, email: user.email, role:user.role, mobile: user.mobile, profileImage: user.profileImage }
+          const userDetails = { id: user.id, name: user.name, email: user.email, role: user.role, mobile: user.mobile, profileImage: user.profileImage }
           return res.status(200).json({
             message: 'Logged in successfully!',
             data: userDetails,

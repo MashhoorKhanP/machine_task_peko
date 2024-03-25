@@ -5,8 +5,34 @@ import { v4 as uuidv4 } from 'uuid';
 /** Get All Blog Posts */
 export const getAllPosts = async (req, res) => {
   try {
-    const allPosts = await Post.findAll();
-    res.status(200).json(allPosts);
+    let { page, limit, category, sorting } = req.query;
+    console.log(req.query)
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const queryOptions = {};
+    if (category) {
+      queryOptions.category = category;
+    }
+    let order;
+    if (sorting === 'latest') {
+      order = [['createdAt', 'DESC']];
+    } else if (sorting === 'relevant') {
+      order = [['createdAt', 'ASC']];
+    }
+    const posts = await Post.findAll({
+      where: queryOptions,
+      limit: limit,
+      offset: offset,
+      order: order
+    });
+    if (!posts) {
+      return res.status(400).json({ message: "Posts not found, Please try again!" });
+    }
+
+    const allPosts = await Post.findAll()
+    res.status(200).json({ data: posts, totalPosts: allPosts.length });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error, Please try again!' });
@@ -30,12 +56,37 @@ export const getPost = async (req, res) => {
 /** Get My Blog Posts */
 export const getMyPosts = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const post = await Post.findAll({ where: { userId } });
-    if (!post) {
+    let { userId, page, limit, category, sorting } = req.query;
+
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const queryOptions = {};
+    if (userId) {
+      queryOptions.userId = userId;
+    }
+    if (category) {
+      queryOptions.category = category;
+    }
+    let order;
+    if (sorting === 'latest') {
+      order = [['createdAt', 'DESC']];
+    } else if (sorting === 'relevant') {
+      order = [['createdAt', 'ASC']];
+    }
+    const posts = await Post.findAll({
+      where: queryOptions,
+      limit: limit,
+      offset: offset,
+      order: order
+    });
+    if (!posts) {
       return res.status(400).json({ message: "Posts not found, Please try again!" });
     }
-    res.status(200).json({ message: 'My Blogs fetched successfully!', data: post });
+    const myAllPosts = await Post.findAll({ where: { userId } });
+
+    res.status(200).json({ message: 'My Blogs fetched successfully!', data: posts, totalPosts: myAllPosts.length });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Internal server error, Please try again!' });
@@ -151,11 +202,12 @@ export const updateDisLike = async (req, res) => {
 export const updateUndoDislike = async (req, res) => {
   try {
     const { postId, userId } = req.query;
-    console.log(req.query, 'undo');
     const post = await Post.findByPk(postId);
+
     if (!post) {
       return res.status(400).json({ message: "Post not found, Please try again!" });
     }
+
     await post.decrement('dislikes', { by: 1 });
     const updatedDislikedBy = post.dislikedBy.filter(id => id !== userId);
 
@@ -246,13 +298,10 @@ export const deleteComment = async (req, res) => {
   }
 };
 
-
-
 /** Delete Blog */
 export const deletePost = async (req, res) => {
   try {
     const postId = req.params.postId;
-    console.log('postId', postId);
     const post = await Post.findByPk(postId);
     if (!post) {
       return res.status(400).json({ message: "Post not found, Please try again!" });

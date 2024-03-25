@@ -22,9 +22,6 @@ const Navbar = ({ role }) => {
     if (role === "admin" && userLoggedIn === null) {
       navigate("/admin/login");
     }
-    if (role === "user" && userLoggedIn === null) {
-      navigate("/login");
-    }
     const storedUser = JSON.parse(localStorage.getItem("userLoggedIn"));
     setUser(storedUser);
   }, [userLoggedIn, navigate, role]);
@@ -32,13 +29,14 @@ const Navbar = ({ role }) => {
   const handleAddBlog = () => {
     if (userLoggedIn === null) {
       navigate("/login");
+      toast.warning("Please login to your account to add blog!");
     } else {
       navigate(`/add-blog/${user.id}`);
     }
   };
 
   const handleMyBlogs = () => {
-    navigate(`/my-blog/${user.id}`);
+    navigate(`/my-blogs/${user.id}`);
   };
 
   const logoutHandler = async () => {

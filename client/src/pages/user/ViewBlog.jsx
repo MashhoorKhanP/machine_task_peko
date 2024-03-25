@@ -142,7 +142,7 @@ const ViewBlog = () => {
         </div>
 
         <div className="flex flex-wrap mb-4">
-          <div className="w-full bg-gray-400 p-4 md:w-full md:pr-4 flex justify-center">
+          <div className="w-full h-svh bg-gray-400 p-4 md:w-full md:pr-4 flex justify-center">
             <img
               src={blog?.image}
               alt="Blog Cover"

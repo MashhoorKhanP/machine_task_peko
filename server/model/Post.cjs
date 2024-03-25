@@ -5,6 +5,9 @@ const Post = db.define('posts', {
   title: {
     type: Sequelize.STRING
   },
+  userId:{
+    type: Sequelize.INTEGER,
+  },
   category: {
     type: Sequelize.STRING
   },
@@ -53,7 +56,6 @@ const Post = db.define('posts', {
   },
   createdAt: {
     type: Sequelize.DATE,
-    defaultValue: new Date()
   },
 })
 
