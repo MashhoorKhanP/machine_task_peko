@@ -33,12 +33,12 @@ const ViewBlog = () => {
       if (response) {
         const data = response.data;
         setBlog(data);
-        // Check if the user has already liked the blog
-        if (user && data.likedBy.includes(user.id)) {
+
+        if (user && data.likedBy.includes(user.id.toString())) {
           setHasLiked(true);
         }
-        // Check if the user has already disliked the blog
-        if (user && data.dislikedBy.includes(user.id)) {
+
+        if (user && data.dislikedBy.includes(user.id.toString())) {
           setHasDisliked(true);
         }
       }
