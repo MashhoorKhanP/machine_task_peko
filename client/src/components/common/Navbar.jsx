@@ -17,6 +17,7 @@ const Navbar = ({ role }) => {
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   const { userLoggedIn } = useSelector((state) => state.auth);
+  console.log(role);
 
   useEffect(() => {
     if (role === "admin" && userLoggedIn === null) {
@@ -214,9 +215,7 @@ const Navbar = ({ role }) => {
                   onClick={() =>
                     role === "user"
                       ? navigate("/login")
-                        ? role === "admin"
-                        : navigate("/admin/login")
-                      : navigate("/login")
+                      : navigate("/admin/login")
                   }
                   className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                 >
