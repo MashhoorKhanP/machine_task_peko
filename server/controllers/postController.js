@@ -150,9 +150,12 @@ export const updateLike = async (req, res) => {
       return res.status(400).json({ message: "Post not found, Please try again!" });
     }
     await post.increment('likes', { by: 1 });
-    const updatedPost = await post.update({
-      likedBy: [...post.likedBy, userId]
-    });
+    if (!post.likedBy.includes(userId)) {
+      await post.update({
+        likedBy: [...post.likedBy, userId]
+      });
+    }
+    const updatedPost = await Post.findByPk(postId);
     res.status(200).json({ message: 'Liked post successfully!', data: updatedPost });
   } catch (error) {
     console.log(error);
@@ -168,7 +171,11 @@ export const updateUndoLike = async (req, res) => {
       return res.status(400).json({ message: "Post not found, Please try again!" });
     }
     await post.decrement('likes', { by: 1 });
-    const updatedLikedBy = post.likedBy.filter(id => id !== userId);
+    const updatedLikedBy = [...post.likedBy];
+    const index = updatedLikedBy.indexOf(userId);
+    if (index !== -1) {
+      updatedLikedBy.splice(index, 1);
+    }
 
     const updatedPost = await post.update({
       likedBy: updatedLikedBy
@@ -189,9 +196,12 @@ export const updateDisLike = async (req, res) => {
       return res.status(400).json({ message: "Post not found, Please try again!" });
     }
     await post.increment('dislikes', { by: 1 });
-    const updatedPost = await post.update({
-      dislikedBy: [...post.dislikedBy, userId]
-    });
+    if (!post.dislikedBy.includes(userId)) {
+      await post.update({
+        dislikedBy: [...post.dislikedBy, userId]
+      });
+    }
+    const updatedPost = await Post.findByPk(postId);
     res.status(200).json({ message: 'Liked post successfully!', data: updatedPost });
   } catch (error) {
     console.log(error);
@@ -209,10 +219,14 @@ export const updateUndoDislike = async (req, res) => {
     }
 
     await post.decrement('dislikes', { by: 1 });
-    const updatedDislikedBy = post.dislikedBy.filter(id => id !== userId);
+    const updatedDislikedBy = [...post.dislikedBy];
+    const index = updatedDislikedBy.indexOf(userId);
+    if (index !== -1) {
+      updatedDislikedBy.splice(index, 1);
+    }
 
     const updatedPost = await post.update({
-      likedBy: updatedDislikedBy
+      dislikedBy: updatedDislikedBy
     });
     res.status(200).json({ message: 'Undo Dislike post successfully!', data: updatedPost });
   } catch (error) {
