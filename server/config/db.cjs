@@ -1,7 +1,8 @@
 const { Sequelize } = require('sequelize');
+require("dotenv").config();
 
 /** Database Connection */
-const db = new Sequelize('blogApp', 'postgres', 'Mashhoor@Postgre', {
+const db = new Sequelize(process.env.DB_NAME, process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
   host: 'localhost',
   dialect: 'postgres'
 });
